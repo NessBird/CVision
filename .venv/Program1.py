@@ -1,6 +1,6 @@
 # CS 510 Comp Vision
 # Ness Blackbird
-# Program 1
+# Program 1.1
 import cv2
 import numpy as np
 
@@ -83,5 +83,5 @@ for image in out_images:
     n += 1
 # Force imshow to actually display the image.
 cv2.waitKey(10)
-input("Press any key to exit...")
+input("Press any key to finish")
 cv2.destroyAllWindows()
