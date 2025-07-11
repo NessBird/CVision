@@ -16,7 +16,7 @@ def flatten(inp, colors):
     image = image.astype(np.float32)
 
     convergence_check = 500
-    iterations = 1
+    iterations = 5
     best_sos = np.inf
     for j in range(iterations):
         # Select the number of random data points we need to start with, and run the model from there.
@@ -38,6 +38,8 @@ def flatten(inp, colors):
             for c in range(len(centers)):
                 # Collect up the points in this cluster.
                 cluster_points = image[classes == c]
+                if cluster_points.shape[0] == 0:
+                    continue
                 # This will return nan if the cluster has no points.
                 centers[c] = np.mean(cluster_points, axis=0)
 
@@ -61,22 +63,19 @@ def flatten(inp, colors):
 
 # Read the images.
 d = '/mnt/c/Users/Ness/Documents/PSU/Comp Vision/Prog1/'
-img1 = cv2.imread(d + 'Kmean_img1.jpg', cv2.IMREAD_COLOR_RGB)
-img2 = cv2.imread(d + 'Kmean_img2.jpg', cv2.IMREAD_COLOR_RGB)
-if img1 is None or img2 is None:
-    raise ValueError("Image not found.")
 
-img = flatten(img1, 3)
-cv2.imshow('Image 1, 3 colors', img)
-img = flatten(img1, 30)
-cv2.imshow('Image 1, 50 colors', img)
+images = [['Kmean_img1.jpg', 5], ['Kmean_img2.jpg', 5], ['Kmean_img1.jpg', 10], ['Kmean_img2.jpg', 10]]
+for img_details in images:
+    img_name = img_details[0]
+    colors = img_details[1]
+    colors = int(colors)
+    # Let it default to using its stupid BGR format.
+    img = cv2.imread(d + img_name)
+    img = flatten(img, colors)
+    cv2.imshow("Image {} flattened to {} colors".format(img_name, colors), img)
+    # This overwrites.
+    cv2.imwrite(d + str(colors) + '-' + img_name, img)
+    cv2.waitKey(10)
 
-img = flatten(img2, 3)
-cv2.imshow('Image 2, 3 colors', img)
-img = flatten(img2, 30)
-cv2.imshow('Image 2, 50 colors', img)
-
-cv2.waitKey(10)
-input("Press any key to finish")
+input("Press any key to exit.")
 cv2.destroyAllWindows()
-#When I want to do broadcasting, but I don't need a dimension in the existing data structure, I need to select just the data I need to using : and []. So, for example, I've got an image with 2 features and a dimension for RGB color. The normal way of retrieving an item from that would be color = image[x, y]

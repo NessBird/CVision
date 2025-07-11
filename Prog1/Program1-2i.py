@@ -1,6 +1,6 @@
 # CS 510 Comp Vision
-# Programming assignment 1.2(i) / Ness Blackbird
-# Read a dataset and implement K-means with various parameters, print graphs of each.
+# Programming assignment 1.2(ii) / Ness Blackbird
+# Read images and implement K-means to flatten them to 5 or 10 colors.
 import numpy as np
 import matplotlib.pyplot as plt
 
