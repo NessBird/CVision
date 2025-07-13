@@ -65,7 +65,7 @@ dt = np.sqrt((dx * dx) + (dy * dy))
 dt = cv2.normalize(dt, None, 0, 255, cv2.NORM_MINMAX)
 out_images.append([dx, "filter1_gx"])
 out_images.append([dy, "filter1_gy"])
-out_images.append([dt, "filter1_dog"])
+out_images.append([dt, "filter1_sobel"])
 
 # Do it all again for Img 2:
 dx = convolve(img2, xf)
@@ -74,7 +74,7 @@ dt = np.sqrt((dx * dx) + (dy * dy))
 dt = cv2.normalize(dt, None, 0, 255, cv2.NORM_MINMAX)
 out_images.append([dx, "filter2_gx"])
 out_images.append([dy, "filter2_gy"])
-out_images.append([dt, "filter2_dog"])
+out_images.append([dt, "filter2_sobel"])
 
 
 n = 1

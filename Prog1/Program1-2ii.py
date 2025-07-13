@@ -64,7 +64,7 @@ def flatten(inp, colors):
 # Read the images.
 d = '/mnt/c/Users/Ness/Documents/PSU/Comp Vision/Prog1/'
 
-images = [['Kmean_img1.jpg', 5], ['Kmean_img2.jpg', 5], ['Kmean_img1.jpg', 10], ['Kmean_img2.jpg', 10]]
+images = [['ness.jpg', 50], ['heather.jpg', 50], ['Kmean_img1.jpg', 10], ['Kmean_img2.jpg', 10]]
 for img_details in images:
     img_name = img_details[0]
     colors = img_details[1]
