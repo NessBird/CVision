@@ -82,3 +82,5 @@ for k_idx, i in enumerate(k):
     plt.grid(True, linestyle='--', alpha=0.7)
     plt.tight_layout()
     plt.savefig(d + "K-means-" + str(i) + ".png", dpi=300)
+
+# Srir Rangan problem. Github Sriram

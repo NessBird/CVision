@@ -3,15 +3,16 @@
 # Use K-Means on the colors of the test images, cluster them and display the images with the flattened colors.
 import cv2
 import numpy as np
+import matplotlib.pyplot as plt
 
 def flatten(inp, colors):
     # Return the given image with its colors flattened using K-means to the given number of colors.
-    width, height, c = inp.shape
+    image = cv2.imread(d + inp)
+    width, height, c = image.shape
     if c != 3:
         raise ValueError("Expecting 3 channels, found {}".format(c))
 
     # Turn the image into a list of pixels, temporarily, each with the three RGB attributes.
-    image = inp.copy()
     image = image.reshape(-1, 3)
     image = image.astype(np.float32)
 
@@ -54,28 +55,35 @@ def flatten(inp, colors):
                     best_classes = classes.copy()
                 break
 
+    plt.figure(figsize=(10, 8))
+
+    # Plot each data point colored by cluster
+    plt.scatter(image[:, 0], image[:, 1], c=best_classes, cmap='rainbow',
+                alpha=0.7, s=50, edgecolors='w')
+
+    # Plot the cluster centers as larger points
+    plt.scatter(best_centers[:, 0], best_centers[:, 1], c='red', s=200, alpha=0.9,
+                marker='X', edgecolors='black', label='Cluster Centers')
+
+    plt.title(f'Image K-means Clustering Results, {colors} clusters, SoS: {best_sos:.0f}')
+    plt.legend()
+    plt.grid(True, linestyle='--', alpha=0.7)
+    plt.tight_layout()
+    plt.savefig(d + "K-means-" + str(colors) + inp, dpi=300)
     # OK, we've found the best version of the k-means. Now we need to make a copy of the image.
     image = best_centers[best_classes]
     image = image.reshape(width, height, 3)
     image = image.astype(np.uint8)
-    return image
+    # This overwrites.
+    cv2.imwrite(d + str(colors) + '-' + inp, image)
 
 
 # Read the images.
 d = '/mnt/c/Users/Ness/Documents/PSU/Comp Vision/Prog1/'
 
-images = [['ness.jpg', 50], ['heather.jpg', 50], ['Kmean_img1.jpg', 10], ['Kmean_img2.jpg', 10]]
+images = [['Kmean_img1.jpg', 5], ['Kmean_img2.jpg', 5], ['Kmean_img1.jpg', 10], ['Kmean_img2.jpg', 10]]
 for img_details in images:
     img_name = img_details[0]
     colors = img_details[1]
-    colors = int(colors)
-    # Let it default to using its stupid BGR format.
-    img = cv2.imread(d + img_name)
-    img = flatten(img, colors)
-    cv2.imshow("Image {} flattened to {} colors".format(img_name, colors), img)
-    # This overwrites.
-    cv2.imwrite(d + str(colors) + '-' + img_name, img)
-    cv2.waitKey(10)
+    flatten(img_name, colors)
 
-input("Press any key to exit.")
-cv2.destroyAllWindows()

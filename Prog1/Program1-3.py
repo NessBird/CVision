@@ -9,8 +9,8 @@ import numpy as np
 
 d = '/mnt/c/Users/Ness/Documents/PSU/Comp Vision/Prog1/'
 # Read the images in BGR format.
-img1 = cv2.imread(d + 'SIFT1_img.jpg')
-img2 = cv2.imread(d + 'SIFT2_img.jpg')
+img1 = cv2.imread(d + 'test1.jpg')
+img2 = cv2.imread(d + 'test2.jpg')
 # Make them the same size.
 img1 = cv2.resize(img1, (img2.shape[1], img2.shape[0]))
 
