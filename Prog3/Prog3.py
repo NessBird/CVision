@@ -153,8 +153,8 @@ visualize_filters(pre_model)
 # Now run some experiments.
 run_once('no-train')
 run_once('base', 6)
-#run_once('mixed_5b', 12)
+run_once('mixed_5b', 12)
 # mixed_5b has a really wide output. Try using global pooling to reduce it.
-#run_once('mixed_5b', 18,True)
-#run_once('mixed_6a', 9)
+run_once('mixed_5b', 18,True)
+run_once('mixed_6a', 9)
 run_once('mixed_7a', 5)
